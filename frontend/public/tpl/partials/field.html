@@ -1,0 +1,20 @@
+<div class="field" ng-repeat="field in game.fields">
+	<div class="field-row">
+		<div class="field-column">
+			<div class="field-box"></div>
+		</div>
+		<div class="field-column" ng-repeat="column in columns">
+			<div class="field-box" ng-bind="column"></div>
+		</div>
+	</div>
+	<div class="field-column">
+		<div class="field-box" ng-repeat="(row, dingsda) in field" ng-bind="row"></div>
+	</div>
+	<div class="field-area">
+		<div class="field-row" ng-repeat="row in field">
+			<div class="field-column" ng-repeat="item in row">
+				<field-item field-data="item"></field-item>
+			</div>
+		</div>
+	</div>
+</div>

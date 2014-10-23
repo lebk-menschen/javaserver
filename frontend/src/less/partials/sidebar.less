@@ -1,0 +1,29 @@
+.sidebar {
+	@sidebar-width : @size-block * 4;
+
+	position: fixed;
+
+	top: 0;
+	left: 0;
+	height: 100%;
+
+	width: @sidebar-width;
+
+	background-color: @color-bg-content;
+
+	.box-shadow(0 15px 6px fade(black, 22%));
+
+	.sidebar-header {
+		height: @size-block * 2;
+
+		background-color: @color-primary-light;
+	}
+
+	.transition(all .3s @easeOutQuint);
+
+	.translateHardware(@sidebar-width * -1, 0px);
+
+	&.open {
+		.translateHardware(0px, 0px);
+	}
+}

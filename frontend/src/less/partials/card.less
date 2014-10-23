@@ -1,0 +1,68 @@
+.card {
+
+	background-color: @color-bg-content;
+
+	.box-shadow(0px 1px 1px fade(black, 24%));
+
+	&.z2 {
+		.box-shadow(0px 3px 3px fade(black, 23%));
+	}
+
+	&.z3 {
+		.box-shadow(0px 6px 3px fade(black, 23%));
+	}
+
+	&.z4 {
+		.box-shadow(0px 10px 5px fade(black, 22%));
+	}
+
+	&.z5 {
+		.box-shadow(0px 15px 6px fade(black, 22%));
+	}
+
+	.item {
+	
+		padding-left: 24px;
+		padding-right: 24px;
+
+		&.card-header {
+			height: @size-block;
+			padding-top: 16px;
+
+			color: @color-icons-dark;
+
+			h2 {
+				margin: 0;
+
+				line-height: 24px;
+				font-size: 16px;
+			}
+
+			.border-box;
+		}
+
+		&.list-item {
+			height: 88px;
+		}
+
+		&.input {
+			height: 48px;
+
+			input {
+				display: block;
+
+				height: 16px;
+
+				padding-top: 16px;
+				padding-bottom: 7px;
+
+				border: none;
+
+				border-bottom: 1px solid @color-dividers;
+				margin-bottom: 8px;
+
+				background-color: transparent;
+			}
+		}
+	}
+}
