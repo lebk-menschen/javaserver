@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src/javaserver"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/sasse/Schreibtisch/mysql-connector-java-5.1.33/mysql-connector-java-5.1.33-bin.jar"/>
+	<classpathentry kind="lib" path="/home/sasse/Documents/workspace-sts-3.6.2.RELEASE/javaserver/server/mysql-connector-java-5.1.33-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
