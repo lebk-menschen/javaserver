@@ -40,7 +40,7 @@ public class DB {
 	    }
 	}
 	
-	private void sql_error(SQLException ex){
+	public void sql_error(SQLException ex){
 		System.out.println("SQLException: " + ex.getMessage());
 	    System.out.println("SQLState: " + ex.getSQLState());
 	    System.out.println("VendorError: " + ex.getErrorCode());
