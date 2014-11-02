@@ -16,7 +16,7 @@ public class DB {
 	
 	public DB(){
 		try {
-		    conn = DriverManager.getConnection("jdbc:mysql://localhost/Battleship?user=root&password=test");
+		    conn = DriverManager.getConnection("jdbc:mysql://130.255.75.168:443/Battleship?user=battleship&password=itfo2");
 		   
 		} catch (SQLException ex) {
 		    //return "conn";
