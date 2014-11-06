@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 
 public class MatchCtrl extends DB {
 
-	public JSONObject createMatch() {
+	public static JSONObject createMatch() {
 		JSONObject response = new JSONObject();
 		
 		response.put("token_user", "abcd");

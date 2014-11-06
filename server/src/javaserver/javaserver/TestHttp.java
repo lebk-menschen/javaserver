@@ -13,6 +13,7 @@ import com.sun.net.httpserver.HttpServer;
 
 
 public class TestHttp {
+	
 	 public static void main(String[] args) throws Exception {
 	        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
 	        
@@ -78,12 +79,13 @@ public class TestHttp {
 	        public void handle(HttpExchange t) throws IOException {
 	        	
 //              LUKAS JSONObject erwartet!
-	            JSONObject responseObj = new JSONObject();	
+	            JSONObject responseObj = MatchCtrl.createMatch();	
 	       
 	            String response = responseObj.toJSONString();
 	            
 	            Headers h = t.getResponseHeaders();
 	            h.add("Content-Type", "application/json");
+	            
 	            t.sendResponseHeaders(200, response.length());
 	            OutputStream os = t.getResponseBody();
 	            os.write(response.getBytes());
