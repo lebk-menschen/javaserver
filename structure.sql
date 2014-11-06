@@ -7,8 +7,8 @@ USE Battleship;
 
 CREATE TABLE `Game` (
   `uid` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  `datePlayed` TIMESTAMP,
-  `timePlayed` TIMESTAMP,
+  `startTime` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `finishTime` TIMESTAMP NULL DEFAULT NULL,
   `winnerPlayerId` INT
 );
 
