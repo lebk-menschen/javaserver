@@ -1,18 +1,29 @@
 package javaserver;
 
-import javax.swing.text.DefaultEditorKit.InsertBreakAction;
 import org.json.simple.JSONObject;
-import javaserver.DB;
-//import com.mysql.jdbc.UpdatableResultSet;
 
-public class MatchCtrl extends DB {
+public class MatchCtrl {
 
-	public JSONObject createMatch(String nameFirstPlayer, String nameSecondPlayer) {
+	public static JSONObject createMatch () {
+		/*
+		 * Datenbankzugriffe sollen im Model von Match.class erfolgen
+		 */
+		Match newMatch = Match.create();
+		
 		JSONObject response = new JSONObject();
-		//int intGameID = insertGame();
-		//int intFirstPlayerID = insert_player(nameFirstPlayer, createToken());
-		response.put("token_user", "abcd");
-		response.put("token_opponent", "asdf");
+		
+		response.put("token_user", newMatch.getPlayerToken());
+		response.put("token_opponent", newMatch.getOpponentToken());
+		
+		return response;
+	}
+	
+	public static JSONObject getMatchDetails(String playertoken){
+		
+		Match match = Match.getMatchByToken(playertoken);
+		JSONObject response = new JSONObject();
+		
+		response.put("token_opponnent", match.getOpponentToken());
 		
 		return response;
 	}
