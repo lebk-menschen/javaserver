@@ -4,5 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="mysql-connector-java-5.1.33-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Svenja/Downloads/eclipse-standard-luna-R-win32-x86_64/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Svenja/workspace/javaserver/server/json-simple-1.1.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

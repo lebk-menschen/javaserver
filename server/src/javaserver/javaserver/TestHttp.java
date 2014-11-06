@@ -19,6 +19,7 @@ public class TestHttp {
 	        server.createContext("/test", new MyHandler());
 	        server.createContext("/api/create" , new CreateHandler());
 	        server.createContext("/api/login" , new CreateHandler());
+	        server.createContext("/api/match" , new CreateHandler());
 	        
 	        
 	        server.setExecutor(null); // creates a default executor
@@ -56,6 +57,24 @@ public class TestHttp {
 	    }
 	    
 	    static class LoginHandler implements HttpHandler {
+	        public void handle(HttpExchange t) throws IOException {
+//	            String response = "token_user: String, token_opponent: String";
+	        	
+	            JSONObject responseObj = new JSONObject();	
+	            responseObj.put("user", "asdf");	
+	            responseObj.put("pass", "jkl");
+	            
+	            String response = responseObj.toJSONString();
+	            
+	            Headers h = t.getResponseHeaders();
+	            h.add("Content-Type", "application/json");
+	            t.sendResponseHeaders(200, response.length());
+	            OutputStream os = t.getResponseBody();
+	            os.write(response.getBytes());
+	            os.close();
+	        }
+	    }
+	    static class MatchHandler implements HttpHandler {
 	        public void handle(HttpExchange t) throws IOException {
 //	            String response = "token_user: String, token_opponent: String";
 	        	
