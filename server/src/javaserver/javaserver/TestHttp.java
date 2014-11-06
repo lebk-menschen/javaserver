@@ -76,12 +76,10 @@ public class TestHttp {
 	    }
 	    static class MatchHandler implements HttpHandler {
 	        public void handle(HttpExchange t) throws IOException {
-//	            String response = "token_user: String, token_opponent: String";
 	        	
+//              LUKAS JSONObject erwartet!
 	            JSONObject responseObj = new JSONObject();	
-	            responseObj.put("user", "asdf");	
-	            responseObj.put("pass", "jkl");
-	            
+	       
 	            String response = responseObj.toJSONString();
 	            
 	            Headers h = t.getResponseHeaders();
