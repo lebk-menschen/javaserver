@@ -1,17 +1,25 @@
 package javaserver;
 
+import java.util.LinkedList;
+
 
 public class Match {
 	
-	protected String playerToken;
-	protected String opponentToken;
+	protected String 			playerToken;
+	protected String 			opponentToken;
+	protected LinkedList<Shot> 	matchShots;
 	
 	public Match (String playerToken, String opponentToken) {
 		this.setPlayerToken(playerToken);
 		this.setOpponentToken(opponentToken);
 	}
 	
-	// Getter & Setter
+	
+	
+	/*
+	 * Getter und Setter
+	 */
+	
 	public String getPlayerToken() {
 		return playerToken;
 	}
@@ -28,13 +36,43 @@ public class Match {
 		this.opponentToken = opponentToken;
 	}
 	
-	// Statische Methoden
+	public LinkedList<Shot> getMatchShots() {
+		if (this.matchShots == null) {
+			/*
+			 * Wenn noch keine ZÃ¼ge geladen sind, sollen Datenbankzugriffe erfolgen, die die ZÃ¼ge auswerten
+			 * 
+			 * Sobald das getan ist, werden die ZÃ¼ge in matchTurns gespeichert.
+			 *
+			 * AnschlieÃŸend wird this.matchTurns ausgegeben.
+			 */
+			
+			this.setMatchShots(new LinkedList<Shot>());
+		}
+		
+		return this.matchShots;
+	}
+
+	public void setMatchShots(LinkedList<Shot> matchTurns) {
+		this.matchShots = matchTurns;
+	}
+	
+	
+	
+	/*
+	 * Klassenmethoden
+	 */
+	
+	
+	/*
+	 * Statische Methoden
+	 */
+	
 	public static Match create () {
 		/*
 		 * Lege ein neues Match in der Datenbank an
 		 * Marke dir das Player-token
 		 * 
-		 * Anschließend soll das Match zurückgegeben werden 
+		 * Anschlieï¿½end soll das Match zurï¿½ckgegeben werden 
 		 */
 		
 		return Match.getMatchByToken("playertoken");
@@ -58,7 +96,7 @@ public class Match {
 	public static boolean exists (String playerToken) {
 		/*
 		 * Suche in der Datenbank nach einem Match, in dem ein Playe das Token playerToken hat
-		 * Falls es das gibt, gib true zurück, ansonsten false
+		 * Falls es das gibt, gib true zurï¿½ck, ansonsten false
 		 */
 		
 		return true;
