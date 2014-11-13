@@ -15,19 +15,12 @@ public class DB {
 	
 	
 	public DB(){
-		try {
-		    conn = DriverManager.getConnection("jdbc:mysql://130.255.75.168:443/Battleship?user=battleship&password=itfo2");
-		   
-		} catch (SQLException ex) {
-		    //return "conn";
-		    System.out.println("SQLException: " + ex.getMessage());
-		    System.out.println("SQLState: " + ex.getSQLState());
-		    System.out.println("VendorError: " + ex.getErrorCode());
-		}
+		DBconn dbconn = new DBconn();
+		conn = dbconn.conn();
 	}
 	
 	
-	private void close_select(){
+	private void closeSelect(){
 		if (rs != null) {
 	        try {rs.close();} 
 	        catch (SQLException sqlEx) { }
@@ -51,18 +44,18 @@ public class DB {
 		}
 		catch (SQLException ex)
 		{
-			sql_error(ex);
+			sqlError(ex);
 			return rid;
 		}
 	}
 	
-	public void sql_error(SQLException ex){
+	public void sqlError(SQLException ex){
 		System.out.println("SQLException: " + ex.getMessage());
 	    System.out.println("SQLState: " + ex.getSQLState());
 	    System.out.println("VendorError: " + ex.getErrorCode());
 	}
 
-	public int insert_player(String name, String token){
+	public int insertPlayer(String name, String token){
 		try{
 		  String query = "INSERT INTO Player (name, token) values (?, ?)";
 		 
@@ -79,12 +72,12 @@ public class DB {
 	    }
 	    catch (SQLException ex)
 	    {
-	      sql_error(ex);
+	      sqlError(ex);
 	      return 0;
 	    }
 	}
 
-	public ResultSet get_player(int uid){
+	public ResultSet getPlayer(int uid){
 	    
 		try {
 			String query = "SELECT * FROM Player WHERE uid = ?";
@@ -97,13 +90,13 @@ public class DB {
     	    return rs;
 		}	
 		catch (SQLException ex){
-    	    sql_error(ex);
+    	    sqlError(ex);
     	    return rs;
     	}
 	}
 	
 
-	public boolean update_player(int uid, String name, String token){
+	public boolean updatePlayer(int uid, String name, String token){
 		try{
 		  String query = "UPDATE Player SET name = ?, token = ? WHERE uid = ?";
 		 
@@ -118,7 +111,7 @@ public class DB {
 	    }
 	    catch (SQLException ex)
 	    {
-	      sql_error(ex);
+	      sqlError(ex);
 	      return false;
 	    }
 	}
