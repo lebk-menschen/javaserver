@@ -55,13 +55,15 @@ public class DB {
 	    System.out.println("VendorError: " + ex.getErrorCode());
 	}
 
-	public int insertPlayer(String name, String token){
+	//Tabelle Player
+	public int insertPlayer(String name, String token, int gameId){
 		try{
-		  String query = "INSERT INTO Player (name, token) values (?, ?)";
+		  String query = "INSERT INTO Player (name, token, gameId) values (?, ?, ?)";
 		 
 	      PreparedStatement prep_stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 	      prep_stmt.setString (1, name);
 	      prep_stmt.setString (2, token);
+	      prep_stmt.setInt (3, gameId);
 	      //preparedStmt.setDate   (3, startDate);
 	      //preparedStmt.setBoolean(4, false);
 	      //preparedStmt.setInt    (5, 5000);
@@ -115,5 +117,63 @@ public class DB {
 	      return false;
 	    }
 	}
+	
+
+	// Tabelle Game
+	public int insertGame(){
+		try{
+		  String query = "INSERT INTO Game VALUES ()";
+		 
+	      PreparedStatement prep_stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+		 
+	      prep_stmt.execute();
+	      return getId(prep_stmt);
+	      
+	    }
+	    catch (SQLException ex)
+	    {
+	      sqlError(ex);
+	      return 0;
+	    }
+	}
+
+	public ResultSet getGame(int uid){
+	    
+		try {
+			String query = "SELECT * FROM Game WHERE uid = ?";
+			
+			PreparedStatement prep_stmt = conn.prepareStatement(query);
+			prep_stmt.setInt(1, uid);
+			
+			rs = prep_stmt.executeQuery();
+
+    	    return rs;
+		}	
+		catch (SQLException ex){
+    	    sqlError(ex);
+    	    return rs;
+    	}
+	}
+	
+
+	public boolean updateGame(int uid, int winnerPlayerId){
+		try{
+		  String query = "UPDATE Game SET winnerPlayerId = ? WHERE uid = ?";
+		 
+	      PreparedStatement prep_stmt = conn.prepareStatement(query);
+	      prep_stmt.setInt (1, winnerPlayerId);
+	      prep_stmt.setInt (2, uid);
+		 
+	      prep_stmt.executeUpdate();
+	      
+	      return true;
+	    }
+	    catch (SQLException ex)
+	    {
+	      sqlError(ex);
+	      return false;
+	    }
+	}
+
 
 }

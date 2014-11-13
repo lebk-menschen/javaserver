@@ -21,7 +21,7 @@ public class dbtest {
 	}
 	
 	public void insert_player(){
-		System.out.println(db.insertPlayer("test", "asdfas"));
+		System.out.println(db.insertPlayer("test", "asdfas", 2));
 	}
 	
 
