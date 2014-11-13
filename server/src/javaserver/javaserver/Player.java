@@ -46,6 +46,15 @@ public class Player {
 	public void setPlayerOpponent(Player playerOpponent) {
 		this.playerOpponent = playerOpponent;
 	}
+	
+	
+	public boolean isPlayersMove () {
+		/*
+		 * Gibt true zurück, wenn der Spieler am Zug ist, oder false, 
+		 * wenn der Gegner dran ist.
+		 */
+	}
+	
 
 	public static Player getPlayer (String playerToken) {
 
