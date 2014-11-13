@@ -23,6 +23,9 @@ public class BattleshipHttpServer {
         server.createContext("/", new StaticFileHandler());
         server.createContext("/api/create", new MatchCreateHandler());
         server.createContext("/api/match", new MatchDetailsHandler());
+        server.createContext("/api/turn/placeship", new PlaceshipHandler());
+        server.createContext("/api/turn/shot", new ShotHandler());
+        
         
         server.setExecutor(null); // creates a default executor
         server.start();
@@ -99,6 +102,39 @@ public class BattleshipHttpServer {
         	
         	
             JSONObject responseData = MatchCtrl.getMatchDetails("Token vom anfragenden Player");
+            String response = responseData.toJSONString();
+            
+            t.sendResponseHeaders(200, response.length());
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        }
+    }
+    
+    static class PlaceshipHandler implements HttpHandler {
+        public void handle(HttpExchange t) throws IOException {
+            
+            Headers h = t.getResponseHeaders();
+            h.add("Content-Type", "application/json");
+        	
+        	
+            JSONObject responseData = new JSONObject();
+            String response = responseData.toJSONString();
+            
+            t.sendResponseHeaders(200, response.length());
+            OutputStream os = t.getResponseBody();
+            os.write(response.getBytes());
+            os.close();
+        }
+    }
+    static class ShotHandler implements HttpHandler {
+        public void handle(HttpExchange t) throws IOException {
+            
+            Headers h = t.getResponseHeaders();
+            h.add("Content-Type", "application/json");
+        	
+        	
+            JSONObject responseData = new JSONObject();
             String response = responseData.toJSONString();
             
             t.sendResponseHeaders(200, response.length());
