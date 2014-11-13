@@ -15,8 +15,15 @@ public class DB {
 	
 	
 	public DB(){
-		DBconn dbconn = new DBconn();
-		conn = dbconn.conn();
+		try {
+		    conn = DriverManager.getConnection("jdbc:mysql://130.255.75.168:443/Battleship?user=battleship&password=itfo2");
+		   
+		} catch (SQLException ex) {
+		    //return "conn";
+		    System.out.println("SQLException: " + ex.getMessage());
+		    System.out.println("SQLState: " + ex.getSQLState());
+		    System.out.println("VendorError: " + ex.getErrorCode());
+		}
 	}
 	
 	

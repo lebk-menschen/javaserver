@@ -1,18 +1,6 @@
 package javaserver;
 
 public class Player {
-	
-	protected String	playerToken;
-	protected Match 	playerMatch;
-	protected Player 	playerOpponent;
-	
-	public Player (String playerToken) {
-		this.setPlayerToken(playerToken);
-	}
-	
-	public String getPlayerToken() {
-		return playerToken;
-	}
 
 	public void setPlayerToken(String playerToken) {
 		this.playerToken = playerToken;
@@ -53,6 +41,7 @@ public class Player {
 		 * Gibt true zurück, wenn der Spieler am Zug ist, oder false, 
 		 * wenn der Gegner dran ist.
 		 */
+		return true;
 	}
 	
 
