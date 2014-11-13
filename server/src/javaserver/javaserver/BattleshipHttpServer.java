@@ -24,7 +24,7 @@ public class BattleshipHttpServer {
         server.createContext("/api/create", new MatchCreateHandler());
         server.createContext("/api/match", new MatchDetailsHandler());
         server.createContext("/api/turn/placeship", new PlaceshipHandler());
-        server.createContext("/api/turn/shot", new ShotHandler());
+        server.createContext("/api/turn/shoot", new ShootHandler());
         
         
         server.setExecutor(null); // creates a default executor
@@ -127,7 +127,7 @@ public class BattleshipHttpServer {
             os.close();
         }
     }
-    static class ShotHandler implements HttpHandler {
+    static class ShootHandler implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
             
             Headers h = t.getResponseHeaders();
