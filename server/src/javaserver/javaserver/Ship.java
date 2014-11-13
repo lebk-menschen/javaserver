@@ -12,7 +12,7 @@ public class Ship {
 	int points;
 	String line;
 	String name;
-	DB db = new DB();
+	static DB db = new DB();
 	
 	public int getShipID() {
 		return shipID;
@@ -69,13 +69,13 @@ public class Ship {
 		this.name = name;
 	}	
 	
-	public static JSONObject insertShip(int playerID, int gameID, int shipID, String coords) {
+	public JSONObject insertShip(int playerID, int gameID, int shipID, String coords) {
 		JSONObject response = new JSONObject();
-		/*this.gamePlayerShipID = db.insertShip(playerID, gameID, shipID, coords);
+		//this.gamePlayerShipID = db.insertShip(playerID, gameID, shipID, coords);
 		
 		response.put("gamePlayerShipID", getGamePlayerShipID());
 		response.put("playerID", playerID);
-		*/
+		
 		response.put("alles", "klar!");
 		return response;
 		

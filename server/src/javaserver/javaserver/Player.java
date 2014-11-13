@@ -1,31 +1,21 @@
 package javaserver;
 
+import org.json.simple.JSONObject;
+
 public class Player {
-	
-	protected String playerToken;
-	protected Player playerOpponent;
-	protected Match playerMatch;
-	
-	public Player(String playerToken) {
-		setPlayerToken(playerToken);
-	}
 
 	public void setPlayerToken(String playerToken) {
 		this.playerToken = playerToken;
 	}
-	
-	public String getPlayerToken() {
-		return this.playerToken;
-	}
 
-	public Match getMatch() {
+	public Match getPlayerMatch() {
 		
 		/*
-		 * Beim ersten Aufruf wird eine Datenbankabfrage f��r das Match mit dem Token des Spielers gemacht.
-		 * So werden pro Anfrage nur eine limitierte Anzahl an Datenbankzugriffen erm��glicht.
+		 * Beim ersten Aufruf wird eine Datenbankabfrage für das Match mit dem Token des Spielers gemacht.
+		 * So werden pro Anfrage nur eine limitierte Anzahl an Datenbankzugriffen ermöglicht.
 		 * 
-		 * Da bei jeder HTTP-Anfrage neue Objekte f��r Player und Match erzeugt wird, ist es egal, 
-		 * dass keine neuen Anfragen an die Datenbank erzeugt werden, weil sich in der Zwischenzeit nichts ��ndert.
+		 * Da bei jeder HTTP-Anfrage neue Objekte für Player und Match erzeugt wird, ist es egal, 
+		 * dass keine neuen Anfragen an die Datenbank erzeugt werden, weil sich in der Zwischenzeit nichts ändert.
 		 */
 		
 		if (this.playerMatch == null) {
@@ -50,7 +40,7 @@ public class Player {
 	
 	public boolean isPlayersMove () {
 		/*
-		 * Gibt true zur��ck, wenn der Spieler am Zug ist, oder false, 
+		 * Gibt true zurück, wenn der Spieler am Zug ist, oder false, 
 		 * wenn der Gegner dran ist.
 		 */
 		return true;
@@ -61,8 +51,8 @@ public class Player {
 
 		/*
 		 * Sucht in der Datenbank nach einem Match, in dem der Spieler mit dem Token playerToken vorkommt.
-		 * Wenn eins gefunden wird, wird ein neues Objekt vom Typ Player erzeugt, ��ber welches dann auf das Match,
-		 * die Matchz��ge und den Gegner zugegriffen werden kann.
+		 * Wenn eins gefunden wird, wird ein neues Objekt vom Typ Player erzeugt, über welches dann auf das Match,
+		 * die Matchzüge und den Gegner zugegriffen werden kann.
 		 */
 		
 		if (true) {
@@ -70,5 +60,9 @@ public class Player {
 		}
 		
 		return null;
+	}
+	
+	public JSONObject insertPlayer() {
+		
 	}
 }
