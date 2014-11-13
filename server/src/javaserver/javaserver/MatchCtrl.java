@@ -1,35 +1,53 @@
 package javaserver;
 
+import java.math.*;
+import java.sql.ResultSet;
+
+import javax.swing.text.DefaultEditorKit.InsertBreakAction;
+
 import org.json.simple.JSONObject;
 
-public class MatchCtrl {
+import sun.org.mozilla.javascript.internal.annotations.JSConstructor;
+import javaserver.DB;
+//import com.mysql.jdbc.UpdatableResultSet;
 
-	public static JSONObject createMatch () {
-		/*
-		 * Datenbankzugriffe sollen im Model von Match.class erfolgen
-		 */
-		Match newMatch = Match.create();
-		
+public class MatchCtrl extends DB {
+
+	public JSONObject createMatch(String nameFirstPlayer, String nameSecondPlayer) {
 		JSONObject response = new JSONObject();
+		int intGameID;
+		int intFirstPlayerID;
+		int intSecondPlayerID;
+		String intFirstPlayerToken;
+		String intSecondPlayerToken;
 		
-		response.put("token_user", newMatch.getPlayerToken());
-		response.put("token_opponent", newMatch.getOpponentToken());
+		intFirstPlayerToken = createToken();
+		intSecondPlayerToken = createToken();
+		intGameID = insertGame(); 
+		intFirstPlayerID = insert_player(nameFirstPlayer, intFirstPlayerToken);
+		intSecondPlayerID = insert_player(nameFirstPlayer, intSecondPlayerToken);
+		
+		response.put(intFirstPlayerID, intFirstPlayerToken);
+		response.put("token_opponent", intSecondPlayerToken);
 		
 		return response;
 	}
 	
-	public static JSONObject getMatchDetails(String playertoken){
+	public JSONObject shotCrtl(int posX, int posY, int playerID){
+		ResultSet rsAllShots;
 		
-		Match match = Match.getMatchByToken(playertoken);
-		JSONObject response = new JSONObject();
+		rsAllShots = getShots(playerID);
 		
-		response.put("token_opponnent", match.getOpponentToken());
 		
-		return response;
+		
+		/** Alternative:
+		 * rsAllShots = insertShot(posX, posY, playerID);
+		 */
+		
 	}
 	
 	public static String createToken() {
-		String token = "asdo3434t5ztsdfh45tws8sdfknsa";
+		String token = "" + (Math.random() * 100000000000000L);
 		return token;
 	}
 }

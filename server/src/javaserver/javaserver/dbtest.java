@@ -20,10 +20,15 @@ public class dbtest {
 		}
 	}
 	
+	public void insert_player(){
+		System.out.println(db.insert_player("test", "asdfas"));
+	}
+	
 
 	public static void main(String[] args) {
 		dbtest ausgabe = new dbtest();
 		ausgabe.get_player();
+		ausgabe.insert_player();
 	}
 
 }
