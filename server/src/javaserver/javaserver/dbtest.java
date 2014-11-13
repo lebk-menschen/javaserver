@@ -9,19 +9,19 @@ public class dbtest {
 	
 	
 	public void get_player(){
-		ResultSet player = db.get_player(1);
+		ResultSet player = db.getPlayer(1);
 		try{
 		   while(player.next()){
 			   System.out.println(player.getString("name"));
 		   }
 		}
 		catch (SQLException ex) {
-			db.sql_error(ex);
+			db.sqlError(ex);
 		}
 	}
 	
 	public void insert_player(){
-		System.out.println(db.insert_player("test", "asdfas"));
+		System.out.println(db.insertPlayer("test", "asdfas"));
 	}
 	
 
