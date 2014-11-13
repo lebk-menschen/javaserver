@@ -53,6 +53,7 @@ public class Player {
 		 * Gibt true zurück, wenn der Spieler am Zug ist, oder false, 
 		 * wenn der Gegner dran ist.
 		 */
+		return true;
 	}
 	
 
