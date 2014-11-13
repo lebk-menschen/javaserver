@@ -33,17 +33,33 @@ public class DB {
 	    }
 	}
 	
+	private int getId(PreparedStatement stmt){
+		int rid = 0;
+		try{
+			ResultSet id = stmt.getGeneratedKeys();
+			if(id.next()){
+				rid = id.getInt(1);
+			}
+			return rid;
+		}
+		catch (SQLException ex)
+		{
+			sql_error(ex);
+			return rid;
+		}
+	}
+	
 	public void sql_error(SQLException ex){
 		System.out.println("SQLException: " + ex.getMessage());
 	    System.out.println("SQLState: " + ex.getSQLState());
 	    System.out.println("VendorError: " + ex.getErrorCode());
 	}
 
-	public boolean insert_player(String name, String token){
+	public int insert_player(String name, String token){
 		try{
 		  String query = "INSERT INTO Player (name, token) values (?, ?)";
 		 
-	      PreparedStatement prep_stmt = conn.prepareStatement(query);
+	      PreparedStatement prep_stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 	      prep_stmt.setString (1, name);
 	      prep_stmt.setString (2, token);
 	      //preparedStmt.setDate   (3, startDate);
@@ -51,13 +67,13 @@ public class DB {
 	      //preparedStmt.setInt    (5, 5000);
 		 
 	      prep_stmt.execute();
+	      return getId(prep_stmt);
 	      
-	      return true;
 	    }
 	    catch (SQLException ex)
 	    {
 	      sql_error(ex);
-	      return false;
+	      return 0;
 	    }
 	}
 
