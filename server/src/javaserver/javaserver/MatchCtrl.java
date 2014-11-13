@@ -13,30 +13,29 @@ import javaserver.DB;
 
 public class MatchCtrl extends DB {
 
-	public JSONObject createMatch(String nameFirstPlayer, String nameSecondPlayer) {
+	public static JSONObject createMatch() {
 		JSONObject response = new JSONObject();
-		int intGameID;
-		int intFirstPlayerID;
-		int intSecondPlayerID;
-		String intFirstPlayerToken;
-		String intSecondPlayerToken;
 		
-		intFirstPlayerToken = createToken();
-		intSecondPlayerToken = createToken();
-		intGameID = insertGame(); 
-		intFirstPlayerID = insert_player(nameFirstPlayer, intFirstPlayerToken);
-		intSecondPlayerID = insert_player(nameFirstPlayer, intSecondPlayerToken);
+		Match match = Match.create();
 		
-		response.put(intFirstPlayerID, intFirstPlayerToken);
-		response.put("token_opponent", intSecondPlayerToken);
+		response.put("token_player", match.getPlayerToken());
+		response.put("token_opponent", match.getOpponentToken());
 		
 		return response;
 	}
 	
-	public JSONObject shotCrtl(int posX, int posY, int playerID){
+	public static JSONObject shoot(int posX, int posY, String playerToken) {
 		ResultSet rsAllShots;
 		
-		rsAllShots = getShots(playerID);
+		Player player = Player.getPlayer(playerToken);
+		
+		if (player != null) {
+			Match match = player.getMatch();
+			
+			Shot shot = new Shot(posX, posY);
+			
+			match.applyShot(shot);
+		}
 		
 		
 		
@@ -44,10 +43,11 @@ public class MatchCtrl extends DB {
 		 * rsAllShots = insertShot(posX, posY, playerID);
 		 */
 		
+		return new JSONObject();
 	}
 	
-	public static String createToken() {
-		String token = "" + (Math.random() * 100000000000000L);
-		return token;
+	public static JSONObject getMatchDetails (String playerToken) {
+		
+		return new JSONObject();
 	}
 }

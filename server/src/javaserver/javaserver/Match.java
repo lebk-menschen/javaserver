@@ -46,14 +46,20 @@ public class Match {
 			 * Anschließend wird this.matchTurns ausgegeben.
 			 */
 			
-			this.setMatchShots(new LinkedList<Shot>());
+			this.matchShots = new LinkedList<Shot>();
 		}
 		
 		return this.matchShots;
 	}
-
-	public void setMatchShots(LinkedList<Shot> matchTurns) {
-		this.matchShots = matchTurns;
+	
+	public String applyShot (Shot shot) {
+		/*
+		 * Ist dieser Zug möglich? ansonsten 'invalid'
+		 * 
+		 * Ist da ein Schiff? ''
+		 */
+		
+		return "invalid";
 	}
 	
 	

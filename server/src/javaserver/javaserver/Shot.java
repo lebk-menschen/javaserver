@@ -2,10 +2,13 @@ package javaserver;
 
 public class Shot {
 	
-	protected String playerToken;
+	protected String 	playerToken;
+	protected int 		posX;
+	protected int 		posY;
 	
-	public Shot () {
-		
+	public Shot (int x, int y) {
+		this.posX = x;
+		this.posY = y;
 	}
 
 	public String getPlayerToken() {
@@ -24,6 +27,6 @@ public class Shot {
 	
 	public static Shot getShot (String matchId, String shotId) {
 		
-		return new Shot();
+		return new Shot(1, 2);
 	}
 }
