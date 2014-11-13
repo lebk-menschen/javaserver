@@ -13,22 +13,22 @@ import javaserver.DB;
 
 public class MatchCtrl extends DB {
 
-	public JSONObject createMatch(String nameFirstPlayer, String nameSecondPlayer) {
+	public JSONObject createMatch(String playerName, String opponentName) {
 		JSONObject response = new JSONObject();
-		int intGameID;
-		int intFirstPlayerID;
-		int intSecondPlayerID;
-		String intFirstPlayerToken;
-		String intSecondPlayerToken;
+		int gameID;
+		int playerID;
+		int opponentID;
+		String playerToken;
+		String opponentToken;
+
+		gameID = insertGame(); 
+		playerToken = createToken();
+		opponentToken = createToken();
+		playerID = insert_player(playerName, playerToken);
+		opponentID = insert_player(opponentName, opponentToken);
 		
-		intFirstPlayerToken = createToken();
-		intSecondPlayerToken = createToken();
-		intGameID = insertGame(); 
-		intFirstPlayerID = insert_player(nameFirstPlayer, intFirstPlayerToken);
-		intSecondPlayerID = insert_player(nameFirstPlayer, intSecondPlayerToken);
-		
-		response.put(intFirstPlayerID, intFirstPlayerToken);
-		response.put("token_opponent", intSecondPlayerToken);
+		response.put(playerID, intPlayerToken);
+		response.put("token_opponent", intOpponentToken);
 		
 		return response;
 	}
