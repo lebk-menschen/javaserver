@@ -2,5 +2,12 @@ frontend/node_modules
 
 
 .metadata
+<<<<<<< HEAD
+
+server/bin
+DBconn.java
+
+=======
 server/src/javaserver/javaserver/DBconn.java
 server/bin
+>>>>>>> 1da880bee13efa0ee0d5138c0e36d89b56aeabc0

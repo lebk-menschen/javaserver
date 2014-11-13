@@ -2,6 +2,8 @@ package javaserver;
 
 import java.util.LinkedList;
 
+import org.json.simple.JSONObject;
+
 
 public class Match {
 	
@@ -79,6 +81,25 @@ public class Match {
 		 * Marke dir das Player-token
 		 * 
 		 * Anschlie�end soll das Match zur�ckgegeben werden 
+		 */
+		
+		/*
+		 * 
+		JSONObject response = new JSONObject();
+		int gameID;
+		int playerID;
+		int opponentID;
+		String playerToken;
+		String opponentToken;
+
+		gameID = insertGame(); 
+		playerToken = createToken();
+		opponentToken = createToken();
+		playerID = insert_player(playerName, playerToken);
+		opponentID = insert_player(opponentName, opponentToken);
+		
+		response.put(playerID, intPlayerToken);
+		response.put("token_opponent", intOpponentToken);
 		 */
 		
 		return Match.getMatchByToken("playertoken");
