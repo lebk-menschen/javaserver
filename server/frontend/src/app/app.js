@@ -1,6 +1,6 @@
 /*global angular*/
 
-angular.module('battleship', ['ui.router'])
+angular.module('battleship', ['ui.router', 'ngMaterial'])
   .config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
 

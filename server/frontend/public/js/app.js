@@ -1,22 +1,12 @@
 /*global angular*/
 
-angular.module('battleship', ['ui.router'])
+angular.module('battleship', ['ui.router', 'ngMaterial'])
   .config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
 
       $urlRouterProvider.otherwise("/login");
 
       $stateProvider
-        .state('start', {
-          url: '/',
-          templateUrl: '/tpl/start.html'
-        })
-
-        .state('login', {
-          url: '/login',
-          templateUrl: '/tpl/login.html',
-          controller: 'LoginCtrl'
-        })
         .state('matchList', {
           url: '/matches',
           templateUrl: '/tpl/views/matchList.html',
@@ -90,22 +80,6 @@ angular.module('battleship')
   //   function ($httpProvider) {
   //     $httpProvider.interceptors.push('authHttpResponseInterceptor');
   //   }]);
-/*global angular*/
-
-angular.module('battleship')
-  .controller('LoginCtrl', ['$scope', '$state', 'authApi',
-    function ($scope, $state, authApi) {
-      $scope.submit = function () {
-        authApi.login($scope.userName, $scope.password)
-          .then(function (result) {
-            console.log('Erfolg', result);
-            $state.go('matchList');
-          })
-          .catch(function (error) {
-            console.log('error', error);
-          });
-      };
-    }]);
 angular.module('battleship')
   .controller('MatchCtrl', ['$scope',
     function ($scope) {
@@ -153,6 +127,13 @@ angular.module('battleship')
 /*global angular*/
 
 angular.module('battleship')
+  .service('matchApi', ['$q', '$http',
+    function ($q, $http) {
+
+    }]);
+/*global angular*/
+
+angular.module('battleship')
   .controller('MatchListCtrl', ['$scope', 'MatchList',
     function ($scope, MatchList) {
       var numbers = _.range(10);
@@ -173,80 +154,24 @@ angular.module('battleship')
 /*global angular*/
 
 angular.module('battleship')
-  .service('MatchList', ['$q',
-    function ($q) {
+  .service('MatchList', ['$q', '$http',
+    function ($q, $http) {
 
-      var spaeter = function () {
+      this.createMatch = function () {
         var deferred = $q.defer();
 
-        setTimeout(function () {
-          deferred.resolve('bin fertig');
-        }, 1000);
-
-        return deferred.promise;
-      };
-
-      spaeter()
-        .then(function (data) {
-          console.log(data);
-        });
-    }]);
-/*global angular*/
-
-angular.module('battleship')
-  .controller('UserCtrl', ['$scope', '$state', 'User',
-    function ($scope, $state, User) {
-      $scope.user = User.getUser();
-
-      function init() {
-        if (!User.getUser()) {
-          $state.go('login');
-        }
-      }
-
-      init();
-    }]);
-angular.module('battleship')
-  .service('User', ['$http',
-    function ($http) {
-      var user;
-
-      this.getUser = function () {
-        if (user) {
-          return user;
-        }
-
-        return false;
-      };
-
-      this.login = function (username, password) {
-        var deferred = $q.defer();
-
-        var usr = {
-          name: username,
-          pass: password
-        };
-
-        console.log('versuche, mich einzuloggen', usr);
-
-        $http
-          .post('/api/login', { data: usr })
-          .success(function (usr) {
-            console.log('eingeloggt');
+        $http.get('/api/create')
+          .success(function (response) {
+            deferred.resolve(response);
           })
-          .error(function (err) {
-            console.log('fehler beim einloggen');
+          .error(function (error) {
+            deferred.reject(error);
           });
 
         return deferred.promise;
       };
-    }
-  ]);
 
-
-
-
-
+    }]);
 angular.module('battleship')
   .directive('field', function () {
     return {
