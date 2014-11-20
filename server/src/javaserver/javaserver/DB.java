@@ -97,6 +97,24 @@ public class DB {
     	}
 	}
 	
+	public ResultSet getPlayerByToken(String token){
+	    
+		try {
+			String query = "SELECT * FROM Player WHERE token = ?";
+			
+			PreparedStatement prep_stmt = conn.prepareStatement(query);
+			prep_stmt.setString(1, token);
+			
+			rs = prep_stmt.executeQuery();
+
+    	    return rs;
+		}	
+		catch (SQLException ex){
+    	    sqlError(ex);
+    	    return rs;
+    	}
+	}
+	
 
 	public boolean updatePlayer(int uid, String name, String token){
 		try{
