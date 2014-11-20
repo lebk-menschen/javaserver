@@ -174,6 +174,25 @@ public class DB {
 	      return false;
 	    }
 	}
+	
+	//Tabelle Ships
+	public ResultSet getShips(){
+	    
+		try {
+			String query = "SELECT * FROM Ship";
+			
+			PreparedStatement prep_stmt = conn.prepareStatement(query);
+			
+			rs = prep_stmt.executeQuery();
+
+    	    return rs;
+		}	
+		catch (SQLException ex){
+    	    sqlError(ex);
+    	    return rs;
+    	}
+	}
+	
 
 
 }
