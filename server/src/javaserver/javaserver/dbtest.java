@@ -32,16 +32,41 @@ public class dbtest {
 		System.out.println(db.getPlayerByToken("asdfas"));
 	}
 	
+	public void getGamePlayerShotsByPlayerToken(){
+		ResultSet test = db.getGamePlayerShotsByPlayerToken("asdfas");
+		try{
+			while(test.next()){
+			System.out.println(test.getString("coord"));
+			}
+		}
+		catch (SQLException ex) {
+			db.sqlError(ex);
+		}
+	}
 	
-	
+	public void getGamePlayerShipsByPlayerToken(){
+		ResultSet test = db.getGamePlayerShipsByPlayerToken("asdfas");
+		try{
+			while(test.next()){
+			System.out.println(test.getString("coord"));
+			}
+		}
+		catch (SQLException ex) {
+			db.sqlError(ex);
+		}
+	}
 	
 
 	public static void main(String[] args) {
 		dbtest ausgabe = new dbtest();
+		/*
 		ausgabe.get_player();
 		ausgabe.insert_player();
 		ausgabe.insert_game();
 		ausgabe.getPlayerByToken();
+		*/
+		//ausgabe.getGamePlayerShotsByPlayerToken();
+		ausgabe.getGamePlayerShipsByPlayerToken();
 	}
 
 }

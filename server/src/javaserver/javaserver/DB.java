@@ -213,6 +213,7 @@ public class DB {
 	
 	
 
+	//Tabelle GamePlayerShot
 	public int insertGamePlayerShot(int gameId, int playerId, int shipId, String coord, int resultId) {
 		try {
 			  String query = "INSERT INTO GamePlayerShot (gameID, playerID, shipID, coord, resultID) values (?, ?, ?, ?, ?)";
@@ -250,12 +251,16 @@ public class DB {
     	}
 	}
 
-	public ResultSet getGamePlayersShotByPlayerId(int playerId) {
+	public ResultSet getGamePlayerShotsByPlayerToken(String token) {
 		try {
-			String query = "SELECT * FROM GamePlayerShot WHERE playerId = ?";
+			String query = ""
+					+ "SELECT gs.* "
+					+ "FROM Player p "
+					+ "JOIN GamePlayerShot gs ON gs.playerId = p.uid "
+					+ "WHERE p.token = ?";
 			
 			PreparedStatement prep_stmt = conn.prepareStatement(query);
-			prep_stmt.setInt(1, playerId);
+			prep_stmt.setString(1, token);
 			
 			rs = prep_stmt.executeQuery();
 
@@ -268,6 +273,7 @@ public class DB {
 	}
 	
 	
+	//Tabelle GamePlayerShip
 	public int insertGamePlayerShip(int gameId, int playerId, int shipId, String coord) {
 		try {
 			  String query = "INSERT INTO GamePlayerShip (gameID, playerID, shipID, coord) values (?, ?, ?, ?)";
@@ -304,12 +310,17 @@ public class DB {
     	}
 	}
 
-	public ResultSet getGamePlayerShipsByPlayerId(int playerId) {
+
+	public ResultSet getGamePlayerShipsByPlayerToken(String token) {
 		try {
-			String query = "SELECT * FROM GamePlayerShip WHERE playerId = ?";
+			String query = ""
+					+ "SELECT gs.* "
+					+ "FROM Player p "
+					+ "JOIN GamePlayerShip gs ON gs.playerId = p.uid "
+					+ "WHERE p.token = ?";
 			
 			PreparedStatement prep_stmt = conn.prepareStatement(query);
-			prep_stmt.setInt(1, playerId);
+			prep_stmt.setString(1, token);
 			
 			rs = prep_stmt.executeQuery();
 
@@ -320,9 +331,26 @@ public class DB {
     	    return rs;
     	}
 	}
-
+	
 
 	
+	public ResultSet getGameee(int uid){
+	    
+		try {
+			String query = "SELECT * FROM Game WHERE uid = ?";
+			
+			PreparedStatement prep_stmt = conn.prepareStatement(query);
+			prep_stmt.setInt(1, uid);
+			
+			rs = prep_stmt.executeQuery();
+
+    	    return rs;
+		}	
+		catch (SQLException ex){
+    	    sqlError(ex);
+    	    return rs;
+    	}
+	}
 	
 	
 	
