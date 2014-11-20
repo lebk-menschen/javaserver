@@ -211,6 +211,150 @@ public class DB {
     	}
 	}
 	
+	
+
+	//Tabelle GamePlayerShot
+	public int insertGamePlayerShot(int gameId, int playerId, int shipId, String coord, int resultId) {
+		try {
+			  String query = "INSERT INTO GamePlayerShot (gameID, playerID, shipID, coord, resultID) values (?, ?, ?, ?, ?)";
+			 
+		      PreparedStatement prep_stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+		      prep_stmt.setInt (1, gameId);
+		      prep_stmt.setInt (2, playerId);
+		      prep_stmt.setInt (3, shipId);
+		      prep_stmt.setString (4, coord);
+		      prep_stmt.setInt (5, resultId);
+			 
+		      prep_stmt.execute();
+		      return getId(prep_stmt);
+		}
+		catch (SQLException ex){
+			sqlError(ex);
+			return 0;
+		}
+	}
+
+	public ResultSet getGamePlayerShotById(int uid){
+		try {
+			String query = "SELECT * FROM GamePlayerShot WHERE uid = ?";
+			
+			PreparedStatement prep_stmt = conn.prepareStatement(query);
+			prep_stmt.setInt(1, uid);
+			
+			rs = prep_stmt.executeQuery();
+
+    	    return rs;
+		}	
+		catch (SQLException ex){
+    	    sqlError(ex);
+    	    return rs;
+    	}
+	}
+
+	public ResultSet getGamePlayerShotsByPlayerToken(String token) {
+		try {
+			String query = ""
+					+ "SELECT gs.* "
+					+ "FROM Player p "
+					+ "JOIN GamePlayerShot gs ON gs.playerId = p.uid "
+					+ "WHERE p.token = ?";
+			
+			PreparedStatement prep_stmt = conn.prepareStatement(query);
+			prep_stmt.setString(1, token);
+			
+			rs = prep_stmt.executeQuery();
+
+    	    return rs;
+		}	
+		catch (SQLException ex){
+    	    sqlError(ex);
+    	    return rs;
+    	}
+	}
+	
+	
+	//Tabelle GamePlayerShip
+	public int insertGamePlayerShip(int gameId, int playerId, int shipId, String coord) {
+		try {
+			  String query = "INSERT INTO GamePlayerShip (gameID, playerID, shipID, coord) values (?, ?, ?, ?)";
+			 
+		      PreparedStatement prep_stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+		      prep_stmt.setInt (1, gameId);
+		      prep_stmt.setInt (2, playerId);
+		      prep_stmt.setInt (3, shipId);
+		      prep_stmt.setString (4, coord);
+			 
+		      prep_stmt.execute();
+		      return getId(prep_stmt);
+		}
+		catch (SQLException ex){
+			sqlError(ex);
+			return 0;
+		}
+	}
+
+	public ResultSet getGamePlayerShipById(int uid) {
+		try {
+			String query = "SELECT * FROM GamePlayerShip WHERE uid = ?";
+			
+			PreparedStatement prep_stmt = conn.prepareStatement(query);
+			prep_stmt.setInt(1, uid);
+			
+			rs = prep_stmt.executeQuery();
+
+    	    return rs;
+		}	
+		catch (SQLException ex){
+    	    sqlError(ex);
+    	    return rs;
+    	}
+	}
+
+
+	public ResultSet getGamePlayerShipsByPlayerToken(String token) {
+		try {
+			String query = ""
+					+ "SELECT gs.* "
+					+ "FROM Player p "
+					+ "JOIN GamePlayerShip gs ON gs.playerId = p.uid "
+					+ "WHERE p.token = ?";
+			
+			PreparedStatement prep_stmt = conn.prepareStatement(query);
+			prep_stmt.setString(1, token);
+			
+			rs = prep_stmt.executeQuery();
+
+    	    return rs;
+		}	
+		catch (SQLException ex){
+    	    sqlError(ex);
+    	    return rs;
+    	}
+	}
+	
+
+	
+	public ResultSet getGameee(int uid){
+	    
+		try {
+			String query = "SELECT * FROM Game WHERE uid = ?";
+			
+			PreparedStatement prep_stmt = conn.prepareStatement(query);
+			prep_stmt.setInt(1, uid);
+			
+			rs = prep_stmt.executeQuery();
+
+    	    return rs;
+		}	
+		catch (SQLException ex){
+    	    sqlError(ex);
+    	    return rs;
+    	}
+	}
+	
+	
+	
+	
 
 
 }
