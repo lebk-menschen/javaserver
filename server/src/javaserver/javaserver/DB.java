@@ -293,6 +293,26 @@ public class DB {
 		}
 	}
 
+	
+	public boolean updateGamePlayerShipUid(int uid, String coord){
+		try{
+		  String query = "UPDATE GamePlayerShip SET coord = ? WHERE uid = ?";
+		 
+	      PreparedStatement prep_stmt = conn.prepareStatement(query);
+	      prep_stmt.setString (1, coord);
+	      prep_stmt.setInt (2, uid);
+		 
+	      prep_stmt.executeUpdate();
+	      
+	      return true;
+	    }
+	    catch (SQLException ex)
+	    {
+	      sqlError(ex);
+	      return false;
+	    }
+	}
+
 	public ResultSet getGamePlayerShipById(int uid) {
 		try {
 			String query = "SELECT * FROM GamePlayerShip WHERE uid = ?";

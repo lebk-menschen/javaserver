@@ -30,7 +30,11 @@ public class GameCtrl extends DB {
 		Player player = Player.getPlayer(playerToken);
 		
 		if (player != null) {
-			Game match = player.getGame();
+
+			//Game match = player.getGame();
+
+			Match match = player.getPlayerMatch();
+
 			
 			Shot shot = new Shot(posX, posY);
 			

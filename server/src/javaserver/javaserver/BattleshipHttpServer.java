@@ -16,6 +16,7 @@ import com.sun.net.httpserver.HttpServer;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Map;
 
 
 public class BattleshipHttpServer {
@@ -24,10 +25,10 @@ public class BattleshipHttpServer {
         HttpServer server = HttpServer.create(new InetSocketAddress(8081), 0);
         
         server.createContext("/", new StaticFileHandler());
-        server.createContext("/api/create", new MatchCreateHandler());
-        server.createContext("/api/match", new MatchDetailsHandler());
-        server.createContext("/api/turn/placeship", new PlaceshipHandler());
-        server.createContext("/api/turn/shoot", new ShootHandler());
+        server.createContext("/api/create", new MatchCreateHandler()).getFilters().add(new ParameterFilter());
+        server.createContext("/api/match", new MatchDetailsHandler()).getFilters().add(new ParameterFilter());
+        server.createContext("/api/turn/placeship", new PlaceshipHandler()).getFilters().add(new ParameterFilter());
+        server.createContext("/api/turn/shoot", new ShootHandler()).getFilters().add(new ParameterFilter());
         
         
         server.setExecutor(null); // creates a default executor
@@ -54,6 +55,7 @@ public class BattleshipHttpServer {
             
             System.out.println("looking for: "+ root + uri.getPath());
             String path = uri.getPath();
+            System.out.println(path + "paaath");
             File file = new File(root + path).getCanonicalFile();
 
             if (!file.isFile()) {
@@ -92,7 +94,9 @@ public class BattleshipHttpServer {
  
     static class MatchCreateHandler implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
-            
+        	Map<String, Object> params =
+     	           (Map<String, Object>)t.getAttribute("parameters");
+        	
             Headers h = t.getResponseHeaders();
             h.add("Content-Type", "application/json");
             
@@ -110,12 +114,17 @@ public class BattleshipHttpServer {
 
     static class MatchDetailsHandler implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
-            
-            Headers h = t.getResponseHeaders();
+          	Map<String, Object> params =
+        	           (Map<String, Object>)t.getAttribute("parameters");
+
+        	String token =  (String) params.get("token");
+        	
+        	Headers h = t.getResponseHeaders();
             h.add("Content-Type", "application/json");
+            
         	
         	
-            JSONObject responseData = MatchCtrl.getMatchDetails("Token vom anfragenden Player");
+            JSONObject responseData = MatchCtrl.getMatchDetails(token);
             String response = responseData.toJSONString();
             
             t.sendResponseHeaders(200, response.length());
@@ -127,6 +136,8 @@ public class BattleshipHttpServer {
     
     static class PlaceshipHandler implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
+        	Map<String, Object> params =
+     	           (Map<String, Object>)t.getAttribute("parameters");
             
             Headers h = t.getResponseHeaders();
             h.add("Content-Type", "application/json");
@@ -143,6 +154,8 @@ public class BattleshipHttpServer {
     }
     static class ShootHandler implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
+        	Map<String, Object> params =
+     	           (Map<String, Object>)t.getAttribute("parameters");
             
             Headers h = t.getResponseHeaders();
             h.add("Content-Type", "application/json");
