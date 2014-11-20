@@ -11,12 +11,12 @@ import sun.org.mozilla.javascript.internal.annotations.JSConstructor;
 import javaserver.DB;
 //import com.mysql.jdbc.UpdatableResultSet;
 
-public class MatchCtrl extends DB {
+public class GameCtrl extends DB {
 
-	public static JSONObject createMatch() {
+	public static JSONObject createGame() {
 		JSONObject response = new JSONObject();
 		
-		Match match = Match.create();
+		Game match = Game.create();
 		
 		response.put("token_player", match.getPlayerToken());
 		response.put("token_opponent", match.getOpponentToken());
@@ -30,7 +30,7 @@ public class MatchCtrl extends DB {
 		Player player = Player.getPlayer(playerToken);
 		
 		if (player != null) {
-			Match match = player.getMatch();
+			Game match = player.getGame();
 			
 			Shot shot = new Shot(posX, posY);
 			
@@ -46,7 +46,7 @@ public class MatchCtrl extends DB {
 		return new JSONObject();
 	}
 	
-	public static JSONObject getMatchDetails (String playerToken) {
+	public static JSONObject getGameDetails (String playerToken) {
 		
 		return new JSONObject();
 	}

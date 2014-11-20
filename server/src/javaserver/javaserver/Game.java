@@ -13,12 +13,19 @@ public class Game extends DB {
 	
 	protected String 			playerToken;
 	protected String 			opponentToken;
+	protected int 				gameID;
 	protected LinkedList<Shot> 	gameShots;
 	
 	public Game (String playerToken, String opponentToken) {
 		this.setPlayerToken(playerToken);
 		this.setOpponentToken(opponentToken);
 	}
+	
+	public Game() {
+		this.playerToken = createToken();
+		this.opponentToken = createToken();
+		insertGame();
+		}
 	
 	
 	
@@ -79,46 +86,27 @@ public class Game extends DB {
 	 * Statische Methoden
 	 */
 	
-	public Game create (String playerName, String opponentName) {
-		/*
-		 * Lege ein neues game in der Datenbank an
-		 * Marke dir das Player-token
-		 * 
-		 * Anschlie�end soll das game zur�ckgegeben werden 
-		 */
-		
-		
-		 
-		JSONObject response = new JSONObject();
-		int gameID;
-
-		gameID = insertGame(); 
+	public Game create () {
+		this.gameID = insertGame(); 
 		this.playerToken = createToken();
-		this.opponentToken = createToken();
-		insertPlayer(playerName, playerToken, gameID);
-		insertPlayer(opponentName, opponentToken, gameID);
+		this.opponentToken = createToken();		 
 		
-		response.put("GameID", gameID);
-		response.put(playerName, playerToken);
-		response.put(playerName, opponentToken);
-		 
-		
-		return response;
+		return this;
 	}
 	
 	public String createToken() {
 		return "" + System.currentTimeMillis();
 	}
-/*
+
 	public static Game getGameByToken(String playerToken) {
-		*
-		 * Suche in der Datenbank nach einem game mit dem Player-Token playerToken
-		 * Wenn eins gefunden wurde, erstelle ein neues game-Objekt mit den Daten aus der Datenbank
-		 * 
-		 * Wenn nicht, wirf 'ne Exception
-		 * 
-		 * 
-		 *
+		/*
+		  Suche in der Datenbank nach einem game mit dem Player-Token playerToken
+		  Wenn eins gefunden wurde, erstelle ein neues game-Objekt mit den Daten aus der Datenbank
+		  
+		  Wenn nicht, wirf 'ne Exception
+	 
+		*/
+		 
 		
 		if (exists(playerToken)) {
 			return new Game("Token vom Player", "Token vom Gegner");
@@ -126,7 +114,7 @@ public class Game extends DB {
 		
 		return null;
 	}
-*/
+
 	
 	public static boolean gameExists(String playerToken, String opponetToken) {
 		
