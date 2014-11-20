@@ -118,7 +118,7 @@ public class BattleshipHttpServer {
             h.add("Content-Type", "application/json");
         	
         	
-            JSONObject responseData = new JSONObject();
+            JSONObject responseData = Ship.insertShip(1234, 1312, 11, "a");
             String response = responseData.toJSONString();
             
             t.sendResponseHeaders(200, response.length());
