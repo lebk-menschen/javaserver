@@ -14,6 +14,9 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 
 public class BattleshipHttpServer {
 	
@@ -30,6 +33,17 @@ public class BattleshipHttpServer {
         server.setExecutor(null); // creates a default executor
         server.start();
     }
+	 
+	 static void enc( String s )
+	  {
+	    try {
+	      System.out.println( URLEncoder.encode( s, "UTF-8" ) );
+	    }
+	    catch ( UnsupportedEncodingException e ) {
+	      e.printStackTrace();
+	    }
+	  }
+
 	 
 	static class StaticFileHandler implements HttpHandler {
 		public void handle(HttpExchange t) throws IOException {
