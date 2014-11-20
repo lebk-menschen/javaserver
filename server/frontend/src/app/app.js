@@ -1,8 +1,8 @@
 /*global angular*/
 
-angular.module('battleship', ['ui.router', 'ngMaterial'])
-  .config(['$stateProvider', '$urlRouterProvider',
-    function ($stateProvider, $urlRouterProvider) {
+angular.module('battleship', ['ui.router', 'ngMaterial', 'LocalStorageModule'])
+  .config(['$stateProvider', '$urlRouterProvider', 'localStorageServiceProvider',
+    function ($stateProvider, $urlRouterProvider, localStorageServiceProvider) {
 
       $urlRouterProvider.otherwise("/login");
 
@@ -17,6 +17,9 @@ angular.module('battleship', ['ui.router', 'ngMaterial'])
           templateUrl: '/tpl/views/match.html',
           controller: 'MatchCtrl'
         });
+
+      localStorageServiceProvider
+        .setPrefix('bs');
     }])
 
   .run(['$rootScope', '$stateParams',

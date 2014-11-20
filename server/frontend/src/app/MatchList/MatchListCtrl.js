@@ -1,20 +1,16 @@
-/*global angular*/
+/*global angular,_*/
 
 angular.module('battleship')
-  .controller('MatchListCtrl', ['$scope', 'MatchList',
-    function ($scope, MatchList) {
-      var numbers = _.range(10);
+  .controller('MatchListCtrl', ['$scope', 'MatchListService', 'localStorageService',
+    function ($scope, MatchListService, localStorageService) {
 
-      var matches = _.map(numbers, function (matchId) {
-        var ret = {
-          name: 'Match Nr.' + (matchId + 1),
-          opponent: 'Andreas',
-          id: matchId,
-          userTurn: (matchId % 3 === 0)
-        };
+      $scope.getMatches = function () {
+        return MatchListService.getMatches();
+      };
 
-        return ret;
-      });
+      $scope.createMatch = function () {
+        MatchListService.createMatch();
+      };
 
-      $scope.matches = matches;
+      localStorageService.bind($scope, 'matches');
     }]);

@@ -5341,7 +5341,6 @@ function ThemingDirective($interpolate) {
     priority: 100,
     link: {
       pre: function(scope, el, attrs) {
-        console.log(attrs);
         var ctrl = {
           $setTheme: function(theme) {
             ctrl.$mdTheme = theme;

@@ -1,8 +1,8 @@
 /*global angular*/
 
-angular.module('battleship', ['ui.router', 'ngMaterial'])
-  .config(['$stateProvider', '$urlRouterProvider',
-    function ($stateProvider, $urlRouterProvider) {
+angular.module('battleship', ['ui.router', 'ngMaterial', 'LocalStorageModule'])
+  .config(['$stateProvider', '$urlRouterProvider', 'localStorageServiceProvider',
+    function ($stateProvider, $urlRouterProvider, localStorageServiceProvider) {
 
       $urlRouterProvider.otherwise("/login");
 
@@ -17,6 +17,9 @@ angular.module('battleship', ['ui.router', 'ngMaterial'])
           templateUrl: '/tpl/views/match.html',
           controller: 'MatchCtrl'
         });
+
+      localStorageServiceProvider
+        .setPrefix('bs');
     }])
 
   .run(['$rootScope', '$stateParams',
@@ -131,45 +134,68 @@ angular.module('battleship')
     function ($q, $http) {
 
     }]);
-/*global angular*/
+/*global angular,_*/
 
 angular.module('battleship')
-  .controller('MatchListCtrl', ['$scope', 'MatchList',
-    function ($scope, MatchList) {
-      var numbers = _.range(10);
+  .controller('MatchListCtrl', ['$scope', 'MatchListService', 'localStorageService',
+    function ($scope, MatchListService, localStorageService) {
 
-      var matches = _.map(numbers, function (matchId) {
-        var ret = {
-          name: 'Match Nr.' + (matchId + 1),
-          opponent: 'Andreas',
-          id: matchId,
-          userTurn: (matchId % 3 === 0)
-        };
+      $scope.getMatches = function () {
+        return MatchListService.getMatches();
+      };
 
-        return ret;
-      });
+      $scope.createMatch = function () {
+        MatchListService.createMatch();
+      };
 
-      $scope.matches = matches;
+      localStorageService.bind($scope, 'matches');
     }]);
 /*global angular*/
 
 angular.module('battleship')
-  .service('MatchList', ['$q', '$http',
-    function ($q, $http) {
+  .service('MatchListService', ['localStorageService', '$http',
+    function (localStorageService, $http) {
+
+      var that = this;
+
+      this.matches = [];
+
+
+      var getMatches = function () {
+        return localStorageService.get('matches');
+      };
+
+      var updateMatches = function () {
+        that.matches = getMatches();
+      };
+
+
+      this.addMatch = function (newMatch) {
+        var tmpMatches = getMatches();
+        tmpMatches.push(newMatch);
+        localStorageService.set('matches', tmpMatches);
+
+        updateMatches();
+      };
 
       this.createMatch = function () {
-        var deferred = $q.defer();
-
         $http.get('/api/create')
-          .success(function (response) {
-            deferred.resolve(response);
-          })
-          .error(function (error) {
-            deferred.reject(error);
+          .success(function (newMatch) {
+            that.addMatch(newMatch);
           });
-
-        return deferred.promise;
       };
+
+
+      function init() {
+        var tmpMatches = localStorageService.get('matches');
+        if (tmpMatches === null || tmpMatches.length === 0) {
+          localStorageService.set('matches', []);
+        }
+
+        updateMatches();
+      }
+
+      init();
 
     }]);
 angular.module('battleship')
