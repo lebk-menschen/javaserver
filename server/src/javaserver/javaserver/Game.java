@@ -16,15 +16,15 @@ public class Game extends DB {
 	protected int 				gameID;
 	protected LinkedList<Shot> 	gameShots;
 	
-	public Game (String playerToken, String opponentToken) {
+	public Game (String playerToken, int gameID) {
 		this.setPlayerToken(playerToken);
-		this.setOpponentToken(opponentToken);
+		this.setOpponentToken(getOpponentTokenFromDB(gameID, playerToken));
 	}
 	
 	public Game() {
 		this.playerToken = createToken();
 		this.opponentToken = createToken();
-		insertGame();
+		this.gameID = insertGame();
 		}
 	
 	
@@ -47,6 +47,12 @@ public class Game extends DB {
 
 	public void setOpponentToken(String opponentToken) {
 		this.opponentToken = opponentToken;
+	}
+	
+	public String getOpponentTokenFromDB(String playerToken, int gameID) {
+		//GetOpponentToken Funktion in DB Klasse erstellen! 
+		//SELECT Token FROM Player WHERE GameID = $GameID$ AND Token != playerToken
+		return getOpponentToken(playerID, gameID); //DB Klasse
 	}
 	
 	public LinkedList<Shot> getgameShots() {
@@ -86,13 +92,6 @@ public class Game extends DB {
 	 * Statische Methoden
 	 */
 	
-	public Game create () {
-		this.gameID = insertGame(); 
-		this.playerToken = createToken();
-		this.opponentToken = createToken();		 
-		
-		return this;
-	}
 	
 	public String createToken() {
 		return "" + System.currentTimeMillis();
@@ -108,23 +107,16 @@ public class Game extends DB {
 		*/
 		 
 		
-		if (exists(playerToken)) {
-			return new Game("Token vom Player", "Token vom Gegner");
+		if (gameExists(playerToken)) {
+			return new Game(playerToken, gameID);
 		}
 		
-		return null;
+		return null; //Spiel gibt es noch nicht -- neues Spiel?
 	}
 
+
 	
-	public static boolean gameExists(String playerToken, String opponetToken) {
-		
-		if(tokenHasGame(playerToken) && tokenHasGame(opponetToken) ) {
-			return true;
-		}		
-		return false;
-	}
-	
-	public static boolean tokenHasGame (String playerToken) {
+	public static boolean gameExists (String playerToken) {
 		ResultSet rsGame = getGame(playerToken);
 		
 		if (rsGame.wasNull()) {

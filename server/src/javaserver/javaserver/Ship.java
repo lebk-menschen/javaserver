@@ -71,7 +71,7 @@ public class Ship {
 	
 	public static JSONObject insertShip(int playerID, int gameID, int shipID, String coords) {
 		JSONObject response = new JSONObject();
-		//this.gamePlayerShipID = db.insertShip(playerID, gameID, shipID, coords);
+		gamePlayerShipID = db.insertGamePlayerShip(playerID, gameID, shipID, coords);
 		
 		response.put("gamePlayerShipID", getGamePlayerShipID());
 		response.put("playerID", playerID);
