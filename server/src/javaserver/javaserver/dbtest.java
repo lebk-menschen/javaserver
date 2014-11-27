@@ -68,6 +68,20 @@ public class dbtest {
 		}
 	}
 	
+	public void getGameByPlayerToken(){
+		ResultSet test = db.getGameByPlayerToken("asdfas");
+		try{
+			while(test.next()){
+			System.out.println(test.getString("uid"));
+			}
+		}
+		catch (SQLException ex) {
+			db.sqlError(ex);
+		}
+	}
+	
+	
+	
 	
 	
 	
@@ -82,7 +96,9 @@ public class dbtest {
 		*/
 		//ausgabe.getGamePlayerShotsByPlayerToken();
 		//ausgabe.getGamePlayerShipsByPlayerToken();
-		ausgabe.getOpponentPlayerByToken();
+		//ausgabe.getOpponentPlayerByToken();
+		ausgabe.getGameByPlayerToken();
+		
 		
 	}
 
