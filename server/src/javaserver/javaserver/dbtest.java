@@ -56,6 +56,21 @@ public class dbtest {
 		}
 	}
 	
+	public void getOpponentPlayerByToken(){
+		ResultSet test = db.getOpponentPlayerByToken("asdfas");
+		try{
+			while(test.next()){
+			System.out.println(test.getString("token"));
+			}
+		}
+		catch (SQLException ex) {
+			db.sqlError(ex);
+		}
+	}
+	
+	
+	
+	
 
 	public static void main(String[] args) {
 		dbtest ausgabe = new dbtest();
@@ -66,7 +81,9 @@ public class dbtest {
 		ausgabe.getPlayerByToken();
 		*/
 		//ausgabe.getGamePlayerShotsByPlayerToken();
-		ausgabe.getGamePlayerShipsByPlayerToken();
+		//ausgabe.getGamePlayerShipsByPlayerToken();
+		ausgabe.getOpponentPlayerByToken();
+		
 	}
 
 }

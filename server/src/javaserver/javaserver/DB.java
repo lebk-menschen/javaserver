@@ -354,13 +354,16 @@ public class DB {
 	
 
 	
-	public ResultSet getGameee(int uid){
+	public ResultSet getOpponentPlayerByToken(String token){
 	    
 		try {
-			String query = "SELECT * FROM Game WHERE uid = ?";
+			String query = "SELECT p2.* FROM Player p "
+					+ "JOIN Player p2 ON p.gameId = p2.gameId AND p2.token != ? "
+					+ "WHERE p.token = ?";
 			
 			PreparedStatement prep_stmt = conn.prepareStatement(query);
-			prep_stmt.setInt(1, uid);
+			prep_stmt.setString(1, token);
+			prep_stmt.setString(2, token);
 			
 			rs = prep_stmt.executeQuery();
 
