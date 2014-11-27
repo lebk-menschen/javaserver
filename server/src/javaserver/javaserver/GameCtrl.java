@@ -33,12 +33,12 @@ public class GameCtrl extends DB {
 
 			//Game match = player.getGame();
 
-			Match match = player.getPlayerMatch();
+			Game game = player.getPlayerGame();
 
 			
 			Shot shot = new Shot(posX, posY);
 			
-			match.applyShot(shot);
+			game.applyShot(shot);
 		}
 		
 		

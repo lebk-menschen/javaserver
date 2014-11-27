@@ -100,7 +100,7 @@ public class BattleshipHttpServer {
             Headers h = t.getResponseHeaders();
             h.add("Content-Type", "application/json");
             
-            JSONObject responseData = MatchCtrl.createMatch();
+            JSONObject responseData = GameCtrl.createGame();
             
             String responseBody = responseData.toJSONString();
             t.sendResponseHeaders(200, responseBody.length());
@@ -124,7 +124,7 @@ public class BattleshipHttpServer {
             
         	
         	
-            JSONObject responseData = MatchCtrl.getMatchDetails(token);
+            JSONObject responseData = GameCtrl.getGameDetails(token);
             String response = responseData.toJSONString();
             
             t.sendResponseHeaders(200, response.length());
