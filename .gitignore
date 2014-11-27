@@ -3,4 +3,9 @@ frontend/node_modules
 
 .metadata
 server/src/javaserver/javaserver/DBconn.java
+server/src/javaserver/javaserver/dbtest.java
 server/bin
+server/target
+server/pom.xml
+
+
