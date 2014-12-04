@@ -4,18 +4,21 @@ angular.module('battleship', ['ui.router', 'ngMaterial', 'LocalStorageModule'])
   .config(['$stateProvider', '$urlRouterProvider', 'localStorageServiceProvider',
     function ($stateProvider, $urlRouterProvider, localStorageServiceProvider) {
 
-      $urlRouterProvider.otherwise("/login");
+      $urlRouterProvider.otherwise("/");
 
       $stateProvider
-        .state('matchList', {
-          url: '/matches',
-          templateUrl: '/tpl/views/matchList.html',
-          controller: 'MatchListCtrl'
-        })
-        .state('match', {
-          url: '/match/:matchId',
-          templateUrl: '/tpl/views/match.html',
-          controller: 'MatchCtrl'
+        .state('default', {
+          url: '/',
+          views: {
+            sidebar: {
+              templateUrl:  '/tpl/matchList.html',
+              controller:   'MatchListCtrl'
+            },
+            content: {
+              templateUrl:  '/tpl/match.html',
+              controller:   'MatchCtrl'
+            }
+          },
         });
 
       localStorageServiceProvider
@@ -34,55 +37,48 @@ angular.module('battleship', ['ui.router', 'ngMaterial', 'LocalStorageModule'])
 /*global angular*/
 
 angular.module('battleship')
-  .service('authApi', ['$q', '$http', '$window',
+  .service('apiService', ['$q', '$http',
     function ($q, $http) {
+      var that = this;
 
-      this.login = function (userName, password) {
+      var matches = {};
+
+      this.matchLoading = false;
+
+      this.getMatchDetails = function (playerToken) {
+        var match = matches[playerToken];
+
+        if (!match) {
+          match = {};
+        }
+
+        that.matchLoading = true;
+
+        $http.get('/api/matches')
+          .success(function (response) {
+            match = response;
+          })
+          .finally(function () {
+            that.matchLoading = false;
+          });
+
+        return match;
+      };
+
+      this.getNewMatchToken = function () {
         var deferred = $q.defer();
 
-        $http.post('/api/login', {
-          userName: userName,
-          password: password
-        })
-          .success(function (result) {
-            console.log(result);
-            // var userInfo = {
-            //   accessToken: result.accessToken,
-            //   userName: result.userName
-            // };
 
-            // $window.sessionStorage.userInfo = JSON.stringify(userInfo);
-
-            deferred.resolve(result);
-          })
-          .error(function (error) {
-            deferred.reject(error);
+        $http.get('/api/create')
+          .success(function (playerToken) {
+            deferred.resolve(playerToken);
           });
 
         return deferred.promise;
       };
-    }])
-  .factory('authHttpResponseInterceptor', ['$q',
-    function ($q) {
-      return {
-        response: function (res) {
-          if (res.status === 401) {
-            console.log('Response 401');
-          }
-
-          return res || $q.when(res);
-        },
-        responseError: function (res) {
-          if (res.status === 401) {
-            console.log('Response Error 401', res);
-          }
-        }
-      };
     }]);
-  // .config(['$httpProvider',
-  //   function ($httpProvider) {
-  //     $httpProvider.interceptors.push('authHttpResponseInterceptor');
-  //   }]);
+/*global angular,_*/
+
 angular.module('battleship')
   .controller('MatchCtrl', ['$scope',
     function ($scope) {
@@ -94,8 +90,8 @@ angular.module('battleship')
         }
       };
 
-      $scope.columns = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-      $scope.rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+      $scope.columns  = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+      $scope.rows     = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 
       var getField = function () {
         var space = {
@@ -127,13 +123,7 @@ angular.module('battleship')
       init();
     }
   ]);
-/*global angular*/
 
-angular.module('battleship')
-  .service('matchApi', ['$q', '$http',
-    function ($q, $http) {
-
-    }]);
 /*global angular,_*/
 
 angular.module('battleship')
@@ -153,8 +143,8 @@ angular.module('battleship')
 /*global angular*/
 
 angular.module('battleship')
-  .service('MatchListService', ['localStorageService', '$http',
-    function (localStorageService, $http) {
+  .service('MatchListService', ['localStorageService', 'apiService',
+    function (localStorageService, apiService) {
 
       var that = this;
 
@@ -179,8 +169,8 @@ angular.module('battleship')
       };
 
       this.createMatch = function () {
-        $http.get('/api/create')
-          .success(function (newMatch) {
+        apiService.getNewMatchToken()
+          .then(function (newMatch) {
             that.addMatch(newMatch);
           });
       };

@@ -2,6 +2,7 @@
 	<head>
 		<link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
 		<link rel="stylesheet" href="/bower_components/angular-material/themes/teal-theme.css">
+		<link rel="stylesheet" href="/css/battleship.css">
 
 		<script src="/bower_components/webcomponentsjs/webcomponents.js"></script>
 
@@ -18,42 +19,39 @@
 
 		<link rel="import" href="/bower_components/paper-button/paper-button.html">
 		<link rel="import" href="/bower_components/paper-item/paper-item.html">
+		<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
 		<link rel="import" href="/bower_components/paper-shadow/paper-shadow.html">
 		<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
 		<link rel="import" href="/bower_components/paper-fab/paper-fab.html">
 	</head>
-	<body vertical layout fullbleed>
-		<!-- HEADER -->
-		<core-toolbar>
-			<paper-icon-button icon="menu"></paper-icon-button>
-			<span flex>Battleship</span>
-		</core-toolbar>
+	<body horizontal layout fullbleed>
 
 		<!-- CONTENT -->
 		<div flex horizontal layout>
 
 			<!-- SIDEBAR -->
 			<aside style="width: 320px;" ng-controller="MatchListCtrl" vertical layout>
-				<md-list flex style="overflow-y: auto;">
-					<md-item ng-repeat="match in matches track by $index">
-						<div class="md-tile-content">
-							<h3 ng-bind="match.token_player"></h3>
-						</div>
-					</md-item>
-				</md-list>
+				<core-header-panel mode="seamed" flex>
+					<core-toolbar>
+						<span flex>Meine Spiele</span>
+						<paper-icon-button icon="add" ng-click="createMatch()"></paper-icon-button>
+					</core-toolbar>
 
-				<div>
-					<paper-button ng-repeat="match in matches track by $index">
-						{{ match.token_player }}
-					</paper-button>
-				</div>
+					<section id="sidebar" class="seam-right" ui-view="sidebar">
 
-				<paper-fab icon="add" ng-click="createMatch()"></paper-fab>
+					</section>
+				</core-header-panel>
 			</aside>
 
 			<!-- MAIN -->
-			<main flex>
-				hier passiert alles
+			<main vertical layout flex>
+				<core-toolbar class="primary">
+					<span flex>Schiffe Versenken</span>
+				</core-toolbar>
+
+				<section id="content" ui-view="content" vertical layout flex>
+					
+				</section>
 			</main>
 		</div>
 

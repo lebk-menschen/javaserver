@@ -1,0 +1,16 @@
+.seam-right {
+  border-right: 1px solid #e5e5e5;
+}
+.seam-left {
+  border-left: 1px solid #e5e5e5;
+}
+#match-list {
+  background-color: #455a64;
+}
+core-toolbar.primary {
+  background-color: #009688;
+  color: white;
+}
+body {
+  font-family: 'Roboto', sans-serif;
+}

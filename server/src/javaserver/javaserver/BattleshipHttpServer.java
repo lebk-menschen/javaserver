@@ -38,8 +38,10 @@ public class BattleshipHttpServer {
             
             System.out.println("working directory + " + System.getProperty("user.dir"));
             
-            System.out.println("looking for: "+ root + uri.getPath());
             String path = uri.getPath();
+            
+            System.out.println("looking for: "+ root + path);
+            
             File file = new File(root + path).getCanonicalFile();
 
             if (!file.isFile()) {

@@ -1,8 +1,8 @@
 /*global angular*/
 
 angular.module('battleship')
-  .service('MatchListService', ['localStorageService', '$http',
-    function (localStorageService, $http) {
+  .service('MatchListService', ['localStorageService', 'apiService',
+    function (localStorageService, apiService) {
 
       var that = this;
 
@@ -27,8 +27,8 @@ angular.module('battleship')
       };
 
       this.createMatch = function () {
-        $http.get('/api/create')
-          .success(function (newMatch) {
+        apiService.getNewMatchToken()
+          .then(function (newMatch) {
             that.addMatch(newMatch);
           });
       };

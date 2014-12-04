@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var sass = require('gulp-sass');
+var less = require('gulp-less');
 var concat = require('gulp-concat');
 
 gulp.task('app', function () {
@@ -8,16 +8,16 @@ gulp.task('app', function () {
     .pipe(gulp.dest('public/js'));
 });
 
-gulp.task('sass', function () {
-  gulp.src('src/scss/*.scss')
-    .pipe(sass())
+gulp.task('less', function () {
+  gulp.src('src/less/battleship.less')
+    .pipe(less())
     .on('error', console.log)
     .pipe(gulp.dest('public/css'));
 });
 
-gulp.task('default', ['app', 'sass']);
+gulp.task('default', ['app', 'less']);
 
 gulp.task('watch', function () {
-  gulp.watch('src/scss/**/*', ['less']);
+  gulp.watch('src/less/**/*', ['less']);
   gulp.watch('src/app/**/*', ['app']);
 });

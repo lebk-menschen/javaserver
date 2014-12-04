@@ -1,0 +1,9 @@
+<div class="match-list">
+	<md-list style="overflow-y: auto;">
+		<md-item ng-repeat="match in matches track by $index">
+			<div class="md-tile-content">
+				<h3 ng-bind="match.token_player"></h3>
+			</div>
+		</md-item>
+	</md-list>
+</div>
