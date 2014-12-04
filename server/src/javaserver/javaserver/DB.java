@@ -354,7 +354,7 @@ public class DB {
 	
 
 	
-public ResultSet getOpponentPlayerByToken(String token){
+	public ResultSet getOpponentPlayerByToken(String token){
 	    
 		try {
 			String query = "SELECT p2.* FROM Player p "
@@ -374,26 +374,6 @@ public ResultSet getOpponentPlayerByToken(String token){
     	    return rs;
     	}
 	}
-
-	public ResultSet getGameByPlayerToken(String token){
-	    
-		try {
-			String query = "SELECT g.* FROM Game g "
-					+ "JOIN Player p ON p.gameId = g.uid "
-					+ "WHERE p.token = ? ";
-			
-			PreparedStatement prep_stmt = conn.prepareStatement(query);
-			prep_stmt.setString(1, token);
-			
-			rs = prep_stmt.executeQuery();
-	
-		    return rs;
-		}	
-		catch (SQLException ex){
-		    sqlError(ex);
-		    return rs;
-		}
-}
 	
 	
 	

@@ -8,7 +8,12 @@
 <fullyQualifiedTypeName name="java.lang.Math"/>
 <fullyQualifiedTypeName name="com.sun.jmx.snmp.Timestamp"/>
 <fullyQualifiedTypeName name="java.sql.Date"/>
-<fullyQualifiedTypeName name="java.sql.ResultSet"/>
 <fullyQualifiedTypeName name="org.json.simple.JSONObject"/>
+<fullyQualifiedTypeName name="com.sun.rowset.internal.Row"/>
+<fullyQualifiedTypeName name="java.sql.ResultSet"/>
 <fullyQualifiedTypeName name="javaserver.Game"/>
+<fullyQualifiedTypeName name="javaserver.Player"/>
+<fullyQualifiedTypeName name="java.sql.SQLException"/>
+<fullyQualifiedTypeName name="com.sun.javafx.scene.layout.region.Margins.Converter"/>
+<fullyQualifiedTypeName name="javaserver.dbtest"/>
 </qualifiedTypeNameHistroy>

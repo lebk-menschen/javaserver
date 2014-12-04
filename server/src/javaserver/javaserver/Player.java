@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 public class Player extends DB {
 	String playerToken;
 	String playerName;
+	Game playerGame;
 	
 
 	public void setPlayerToken(String playerToken) {
@@ -29,10 +30,7 @@ public class Player extends DB {
 	}
 
 	public boolean isPlayersMove () {
-		/*
-		 * Gibt true zurück, wenn der Spieler am Zug ist, oder false, 
-		 * wenn der Gegner dran ist.
-		 */
+		
 		return true;
 	}
 	
@@ -54,7 +52,8 @@ public class Player extends DB {
 	
 	public static Player insertPlayer(String name) {
 		Game game = new Game();
-		insertPlayer()
+		game.insertPlayer(name, game.createToken(), new Game().gameID);
+		return new Player();
 	}
 }
 

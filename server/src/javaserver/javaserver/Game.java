@@ -2,11 +2,14 @@ package javaserver;
 
 import java.sql.Date;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 import org.json.simple.JSONObject;
 
+import com.sun.javafx.scene.layout.region.Margins.Converter;
 import com.sun.jmx.snmp.Timestamp;
+import com.sun.rowset.internal.Row;
 
 
 public class Game extends DB {
@@ -16,9 +19,9 @@ public class Game extends DB {
 	protected int 				gameID;
 	protected LinkedList<Shot> 	gameShots;
 	
-	public Game (String playerToken, int gameID) {
+	public Game (String playerToken) {
 		this.setPlayerToken(playerToken);
-		this.setOpponentToken(getOpponentTokenFromDB(gameID, playerToken));
+		this.setOpponentToken(getOpponentToken(playerToken));
 	}
 	
 	public Game() {
@@ -49,10 +52,15 @@ public class Game extends DB {
 		this.opponentToken = opponentToken;
 	}
 	
-	public String getOpponentTokenFromDB(String playerToken, int gameID) {
-		//GetOpponentToken Funktion in DB Klasse erstellen! 
-		//SELECT Token FROM Player WHERE GameID = $GameID$ AND Token != playerToken
-		return getOpponentToken(playerID, gameID); //DB Klasse
+	public String getOpponentToken(String playerToken) {
+		ResultSet rsOpponent = getOpponentPlayerByToken(playerToken);
+		try {
+			rsOpponent.first();
+			return rsOpponent.getString(1);
+			
+		} catch(SQLException sqlEx) {
+			return "";
+		}
 	}
 	
 	public LinkedList<Shot> getgameShots() {
@@ -117,13 +125,15 @@ public class Game extends DB {
 
 	
 	public static boolean gameExists (String playerToken) {
-		ResultSet rsGame = getGame(playerToken);
+		DB db = new DB();  
+		ResultSet rsGame = (playerToken);
 		
-		if (rsGame.wasNull()) {
+		try{
+			return rsGame.first();
+		}
+		catch(SQLException sqlEx) {
 			return false;
-		} 
-		return true;
+		}
 	}
-	
 	
 }
