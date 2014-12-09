@@ -1,28 +1,71 @@
-<!doctype html>
 <html ng-app="battleship">
 	<head>
-		<link href='http://fonts.googleapis.com/css?family=Roboto:500,300,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="/bower_components/angular-material/angular-material.css">
+		<link rel="stylesheet" href="/bower_components/angular-material/themes/teal-theme.css">
 		<link rel="stylesheet" href="/css/battleship.css">
 
-		<script src="/lib/underscore.js"></script>
+		<script src="/bower_components/webcomponentsjs/webcomponents.js"></script>
 
-		<script src="/lib/angular.js"></script>
-		<script src="/lib/angular-ui-router.js"></script>
 
-		<script src="/js/app.js"></script>
+
+		<link rel="import" href="/bower_components/polymer/layout.html">
+
+		<link rel="import" href="/bower_components/font-roboto/roboto.html">
+
+		<link rel="import" href="/bower_components/core-menu/core-menu.html">
+		<link rel="import" href="/bower_components/core-header-panel/core-header-panel.html">
+		<link rel="import" href="/bower_components/core-toolbar/core-toolbar.html">
+		<link rel="import" href="/bower_components/core-icons/core-icons.html">
+
+		<link rel="import" href="/bower_components/paper-button/paper-button.html">
+		<link rel="import" href="/bower_components/paper-item/paper-item.html">
+		<link rel="import" href="/bower_components/paper-ripple/paper-ripple.html">
+		<link rel="import" href="/bower_components/paper-shadow/paper-shadow.html">
+		<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+		<link rel="import" href="/bower_components/paper-fab/paper-fab.html">
 	</head>
-	<body>
-		<aside class="sidebar">
-			<div class="sidebar-header"></div>
-			<div class="paper-seam"></div>
-		</aside>
-		<main class="system-level">
-			<header class="paper-toolbar color">
-				
-			</header>
-			<div class="paper-toolbar-content" data-ui-view>
-				
+	<body horizontal layout fullbleed>
+
+		<!-- CONTENT -->
+		<div flex horizontal layout>
+
+			<!-- SIDEBAR -->
+			<aside style="width: 320px;" ng-controller="MatchListCtrl" vertical layout>
+				<core-header-panel mode="seamed" flex>
+					<core-toolbar>
+						<span flex>Meine Spiele</span>
+						<paper-icon-button icon="add" ng-click="createMatch()"></paper-icon-button>
+					</core-toolbar>
+
+					<section id="sidebar" class="seam-right" ui-view="sidebar">
+
+					</section>
+				</core-header-panel>
+			</aside>
+
+			<!-- MAIN -->
+			<main vertical layout flex>
+				<core-toolbar class="primary">
+					<span flex>Schiffe Versenken</span>
+				</core-toolbar>
+
+				<section id="content" ui-view="content" vertical layout flex>
+					
+				</section>
 			</main>
 		</div>
+
+
+		<script src="/bower_components/underscore/underscore.js"></script>
+		<script src="/bower_components/hammerjs/hammer.js"></script>
+
+		<script src="/bower_components/angular/angular.js"></script>
+		<script src="/bower_components/angular-animate/angular-animate.js"></script>
+		<script src="/bower_components/angular-material/angular-material.js"></script>
+		<script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+		<script src="/bower_components/angular-aria/angular-aria.js"></script>
+		<script src="/bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+
+		<script src="/js/app.js"></script>
 	</body>
 </html>

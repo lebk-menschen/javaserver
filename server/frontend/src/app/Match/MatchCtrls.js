@@ -1,3 +1,5 @@
+/*global angular,_*/
+
 angular.module('battleship')
   .controller('MatchCtrl', ['$scope',
     function ($scope) {
@@ -9,8 +11,8 @@ angular.module('battleship')
         }
       };
 
-      $scope.columns = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-      $scope.rows = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+      $scope.columns  = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+      $scope.rows     = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
 
       var getField = function () {
         var space = {
